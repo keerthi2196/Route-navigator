@@ -1,0 +1,3 @@
+export const CONFIG = {
+  GOOGLE_API_KEY: 'AIzaSyCh-H9fxZXaR43dQQgg4FIwLWpAX2L5C7E'
+};

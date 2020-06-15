@@ -1,0 +1,66 @@
+<div id="route-container">
+    <div class="font-bold">
+        <p id="route-label">Route</p>
+    </div>
+    <div class="add-route-container">
+        <div id="input-and-display-address" class="col col-xl-4 col-lg-12">
+            <div class="form-group">
+                <input class="form-control" #search [formControl]="searchControl" type="text" placeholder="From Location" autocorrect="off"
+                    autocapitalize="off" spellcheck="off">
+                    <br/>
+                    <input class="form-control" #searchDest [formControl]="searchControlDest" type="text" placeholder="To Location" autocorrect="off"
+                    autocapitalize="off" spellcheck="off">
+            </div>
+            <div id="addresses-container" *ngIf="addresses">
+                <ul *ngFor="let address of addresses; let index = index; trackBy: trackByIndex;">
+                    <div class="line">
+                        <div class="letter-marker">{{ alphabeticLabels[index] }}</div>
+                        <div>
+                            <li>
+                                <div>{{ address.street }}</div>
+                                <input class="address-complement" placeholder="Ex.: AP 65 or HOUSE 2" [(ngModel)]="addresses[index].additionalInfo">
+                            </li>
+                        </div>
+                    </div>
+                </ul>
+                <!-- <div>
+                    <input type="button" value="clear" (click)='clearAddress()'/>
+                </div> -->
+            </div>
+            <div id="distance-price-container" *ngIf="distance">
+                <div id="distance-container">
+                    <div class="font-bold">
+                        <p id="distance-label">Distance</p>
+                    </div>
+                    <div id="distance-value">{{ distance }} km</div>
+                </div>
+            </div>
+        </div>
+        <div id="map" class="col col-xl-8 col-lg-12">
+            <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="false">
+  
+                <div *ngIf="markers.length >= 1" >
+                    <div *ngFor="let marker of markers"> 
+                        <agm-marker [latitude]="marker.lat" [longitude]="marker.lng" [label]="marker.label">
+                        </agm-marker>
+                    </div>
+                </div>
+                <div *ngIf="markers.length === 2">
+                    <agm-polyline>
+                        <agm-polyline-point *ngFor="let marker of markers"
+                        [latitude]="marker.lat" [longitude]="marker.lng"
+                        >
+                        </agm-polyline-point>
+                    </agm-polyline>
+                </div>
+  
+            </agm-map>
+        </div>
+    </div>
+    <div>
+        <textarea name="route" id="" cols="30" rows="5" style="width:100%;">
+            {{routeJSON}}
+        </textarea>
+    </div>
+  </div>
+  
